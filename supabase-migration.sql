@@ -517,8 +517,8 @@ $$ LANGUAGE plpgsql;
 -- pgloader sqlite:///path/to/satoshii.db postgresql://...
 
 -- ============================================================
--- PRONTO! Agora configure o .env do servidor com as credenciais:
---   SUPABASE_URL=https://zotzjqqqywgurwfjenoa.supabase.co
---   SUPABASE_ANON_KEY=eyJhbGci...
---   SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...
+-- PRONTO! Agora configure o .env do servidor com as credenciais (nunca commitar):
+--   SUPABASE_URL=https://SEU-PROJETO.supabase.co
+--   SUPABASE_ANON_KEY=cole-a-anon-key-aqui
+--   SUPABASE_SERVICE_ROLE_KEY=cole-a-service-role-key-aqui
 -- ============================================================
