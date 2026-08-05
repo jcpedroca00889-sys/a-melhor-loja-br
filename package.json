@@ -1,7 +1,7 @@
 {
   "name": "satoshii-store",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "scripts": {
     "dev": "concurrently -n server,web -c blue,green \"node server/index.ts\" \"vite\"",
