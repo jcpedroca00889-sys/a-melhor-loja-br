@@ -107,8 +107,15 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /* ---------- uploads de imagens (produtos com FOTOS REAIS ou links) ---------- */
-const uploadsDir = join(__dirname, "uploads");
-mkdirSync(uploadsDir, { recursive: true });
+// Na Vercel o filesystem é efêmero e somente /tmp é gravável — usamos /tmp lá
+// para o upload não quebrar (arquivos não persistem entre cold starts; para
+// persistência real seria preciso Supabase Storage).
+const uploadsDir = process.env.VERCEL ? join("/tmp", "uploads") : join(__dirname, "uploads");
+try {
+  mkdirSync(uploadsDir, { recursive: true });
+} catch {
+  // filesystem somente-leitura (casos extremos) — uploads ficam desabilitados
+}
 
 const mimeToExt: Record<string, string> = {
   "image/png": "png",
@@ -363,13 +370,19 @@ function normalizeDeliveryMode(value: unknown): DeliveryMode {
 }
 
 try {
-  getMpConfig(); // fail-fast: PAYMENTS_MODE=live sem token/secret → aborta o boot
+  getMpConfig(); // fail-fast: PAYMENTS_MODE=live sem token/secret → aborta o boot local
 } catch (err) {
   console.error(
     "[server] Configuração de pagamentos inválida:",
     err instanceof Error ? err.message : err,
   );
-  process.exit(1);
+  if (process.env.VERCEL) {
+    // Em produção a config vem do painel da Vercel; se faltar, o erro aparece
+    // por pedido (PIX não gera) sem derrubar a função inteira.
+    console.error("[server] Continuando — defina MP_ACCESS_TOKEN no painel da Vercel.");
+  } else {
+    process.exit(1);
+  }
 }
 
 /* ---------- rotas de autenticação ---------- */
@@ -2673,8 +2686,18 @@ if (existsSync(distDir)) {
   });
 }
 
-seedCatalog();
-await seedAdmin();
+// Seed idempotente (só insere se as tabelas estiverem vazias). Em cold starts
+// da Vercel roda a cada invocação nova — se falhar (tabelas ainda não criadas),
+// não pode derrubar a função: loga e segue (as rotas respondem 500 com a causa).
+try {
+  seedCatalog();
+  await seedAdmin();
+} catch (err) {
+  console.error(
+    "[server] Falha no seed inicial (rodou o supabase-migration.sql no Supabase?):",
+    err instanceof Error ? err.message : err,
+  );
+}
 
 /* ---------- handler de erro global — nunca devolver HTML de exceção ---------- */
 app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
@@ -2707,6 +2730,14 @@ app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`SATOSHII STORE API rodando em http://localhost:${PORT}`);
-});
+if (process.env.VERCEL) {
+  // Deploy Vercel: a função serverless (api/index.ts) exporta o app; aqui não
+  // há listen — a plataforma chama o handler a cada request.
+  console.log("[server] Modo Vercel — app exportado sem listen.");
+} else {
+  app.listen(PORT, () => {
+    console.log(`SATOSHII STORE API rodando em http://localhost:${PORT}`);
+  });
+}
+
+export default app;

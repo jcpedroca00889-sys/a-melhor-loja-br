@@ -3,7 +3,7 @@ import { promisify } from "node:util";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { supabase } from "./supabase-client";
+import { supabase } from "./supabase-client.ts";
 
 /* ============================================================
    DB — Supabase (PostgreSQL) — substitui o SQLite local.
@@ -376,6 +376,9 @@ export async function listUserOrders(userId: string): Promise<OrderRow[]> {
   return data as OrderRow[];
 }
 
+/** Pedidos do próprio usuário (GET /api/orders — perfil). */
+export const listOrdersByUser = listUserOrders;
+
 /* ============================================================
    SESSIONS
    ============================================================ */
@@ -600,6 +603,12 @@ export async function getOrderById(id: string): Promise<OrderRow | undefined> {
   return data as OrderRow;
 }
 
+export async function getOrderByPaymentId(paymentId: string): Promise<OrderRow | undefined> {
+  const { data, error } = await supabase.from("orders").select("*").eq("payment_id", paymentId).single();
+  if (error || !data) return undefined;
+  return data as OrderRow;
+}
+
 export async function updateOrderStatus(id: string, status: string, deliveryJson: string | null = null): Promise<void> {
   const update: Record<string, any> = { status };
   if (deliveryJson !== null) update.delivery_json = deliveryJson;
@@ -657,6 +666,68 @@ export async function listOrders(opts: {
   const { data, count, error } = await query;
   if (error) return { items: [], total: 0 };
   return { items: (data ?? []) as OrderRow[], total: count ?? 0 };
+}
+
+/* ============================================================
+   ORDERS — admin (listAllOrders) e busca por payment_id
+   ============================================================ */
+
+export interface OrderListOptions {
+  status?: string;
+  deliveryMode?: string;
+  needsManual?: boolean;
+  paymentStatus?: string; // lista separada por vírgula → IN
+  q?: string;
+  page?: number;
+  limit?: number;
+  sort?: "status" | "asc" | "desc";
+}
+
+/** Lista pedidos para o painel admin. Sem filtros retorna todos ordenados
+ *  pending → approved → resto (compatível com o AdminPage); com query aplica
+ *  filtros + paginação (page/limit). */
+export async function listAllOrders(
+  opts: OrderListOptions = {},
+): Promise<{ items: OrderRow[]; total?: number; page?: number; limit?: number }> {
+  const { status, deliveryMode, needsManual, paymentStatus, q, sort } = opts;
+
+  let query = supabase.from("orders").select("*", { count: "exact" });
+  if (status) query = query.eq("status", status);
+  if (deliveryMode) query = query.eq("delivery_mode", deliveryMode);
+  if (needsManual !== undefined) query = query.eq("needs_manual", needsManual ? 1 : 0);
+  if (paymentStatus) {
+    const values = paymentStatus.split(",").map((s) => s.trim()).filter(Boolean);
+    if (values.length > 0) query = query.in("payment_status", values);
+  }
+  if (q) {
+    query = query.or(`customer_name.ilike.%${q}%,customer_email.ilike.%${q}%,id.ilike.%${q}%`);
+  }
+
+  if (sort === "asc") query = query.order("created_at", { ascending: true });
+  else query = query.order("created_at", { ascending: false });
+
+  const { data, count, error } = await query;
+  if (error) return { items: [] };
+
+  let items = (data ?? []) as OrderRow[];
+  // sort "status": pending primeiro, depois approved, depois o resto.
+  if (sort === "status") {
+    const RANK: Record<string, number> = { pending: 0, approved: 1 };
+    items = [...items].sort((a, b) => {
+      const ra = RANK[a.status] ?? 2;
+      const rb = RANK[b.status] ?? 2;
+      if (ra !== rb) return ra - rb;
+      return String(b.created_at).localeCompare(String(a.created_at));
+    });
+  }
+
+  if (opts.page !== undefined && opts.limit !== undefined) {
+    const page = Math.max(1, opts.page);
+    const limit = Math.min(500, opts.limit);
+    const from = (page - 1) * limit;
+    return { items: items.slice(from, from + limit), total: count ?? items.length, page, limit };
+  }
+  return { items };
 }
 
 /* ============================================================
@@ -1193,10 +1264,23 @@ interface SeedCategory { id: string; name: string; emoji: string; color: string;
 interface SeedProduct { slug: string; name: string; tagline: string; description: string; price: number; oldPrice?: number; categoryId: string; emoji: string; hueA: string; hueB: string; badges: string[]; rating: number; reviews: number; stock: number; featured: boolean; }
 
 function readSeed<T>(file: string): T[] {
-  try {
-    const raw = readFileSync(join(__dirname, "..", "src", "lib", "db", "seed", file), "utf8");
-    return JSON.parse(raw) as T[];
-  } catch { return []; }
+  // Procura o JSON de seed em vários layouts: desenvolvimento (server/db.ts) e
+  // bundle da Vercel (lambda na raiz ou em api/), onde os arquivos são
+  // incluídos via "includeFiles" no vercel.json.
+  const candidates = [
+    join(__dirname, "..", "src", "lib", "db", "seed", file),
+    join(__dirname, "src", "lib", "db", "seed", file),
+    join(process.cwd(), "src", "lib", "db", "seed", file),
+    join(process.cwd(), "..", "src", "lib", "db", "seed", file),
+  ];
+  for (const p of candidates) {
+    try {
+      return JSON.parse(readFileSync(p, "utf8")) as T[];
+    } catch {
+      // tenta o próximo caminho
+    }
+  }
+  return [];
 }
 
 export async function seedCatalog(): Promise<void> {
