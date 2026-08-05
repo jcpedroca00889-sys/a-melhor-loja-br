@@ -42,7 +42,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative flex min-h-dvh items-center overflow-hidden pb-20 pt-32">
+    <section className="relative flex min-h-dvh items-center overflow-hidden pb-20 pt-24 sm:pt-32">
       {/* Glows com parallax de mouse */}
       <motion.div
         style={{ x, y }}
@@ -65,19 +65,19 @@ export function Hero() {
 
           <motion.h1
             variants={item}
-            className="mt-6 text-5xl font-extrabold leading-[1.04] sm:text-6xl xl:text-7xl"
+            className="mt-6 text-[clamp(2.25rem,7vw,4.5rem)] font-extrabold leading-[1.06] sm:leading-[1.04]"
           >
             Seu pequeno mundo{" "}
             <span className="text-gradient">cartoon</span> premium
           </motion.h1>
 
-          <motion.p variants={item} className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+          <motion.p variants={item} className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
             Produtos encantadores, cores vibrantes e uma experiência que
             parece cena de desenho animado. Bem-vindo ao lugar onde comprar
             volta a ser divertido.
           </motion.p>
 
-          <motion.div variants={item} className="mt-9 flex flex-wrap items-center gap-4">
+          <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3 sm:mt-9 sm:gap-4">
             <Button size="xl" onClick={scrollToProducts}>
               Explorar loja
               <ArrowRight className="size-5" />
@@ -91,7 +91,7 @@ export function Hero() {
 
           <motion.div
             variants={item}
-            className="mt-12 flex flex-wrap items-center gap-8 sm:gap-12"
+            className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 sm:mt-12 sm:gap-12"
           >
             {[
               { value: "15+", label: "Produtos exclusivos" },
@@ -112,7 +112,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", stiffness: 120, damping: 20, delay: 0.4 }}
-          className="relative aspect-square"
+          className="relative hidden aspect-square lg:block"
         >
           <Suspense
             fallback={

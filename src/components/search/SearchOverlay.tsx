@@ -69,7 +69,7 @@ export default function SearchOverlay() {
           >
             <div className="mx-auto max-w-2xl">
               {/* Barra de busca */}
-              <div className="glass-strong flex items-center gap-4 rounded-hero px-6 shadow-lift">
+              <div className="glass-strong flex items-center gap-3 rounded-hero px-4 shadow-lift sm:gap-4 sm:px-6">
                 <motion.span
                   animate={{ rotate: focused ? 180 : 0, scale: focused ? 1.2 : 1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 18 }}

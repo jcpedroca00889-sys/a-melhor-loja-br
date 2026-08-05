@@ -96,6 +96,7 @@ export default function Header() {
         "fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-out",
         scrolled ? "py-2" : "py-4",
       )}
+      style={{ paddingTop: `max(${scrolled ? "0.5rem" : "1rem"}, env(safe-area-inset-top))` }}
     >
       <div className="wrap">
         <div
@@ -162,12 +163,12 @@ export default function Header() {
           </nav>
 
           {/* Ações */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <button
               type="button"
               onClick={openSearch}
               title="Pesquisar"
-              className="group relative grid h-11 w-11 place-items-center rounded-2xl glass text-muted transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:text-primary hover:shadow-glow active:scale-95"
+              className="group relative grid h-10 w-10 place-items-center rounded-xl glass text-muted transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:text-primary hover:shadow-glow active:scale-95 sm:h-11 sm:w-11 sm:rounded-2xl"
             >
               <Search className="size-5 transition-transform duration-300 group-hover:rotate-12" />
             </button>
@@ -178,7 +179,7 @@ export default function Header() {
                   onClick={() => setUserMenuOpen((v) => !v)}
                   title={user.username}
                   aria-expanded={userMenuOpen}
-                  className="group relative grid h-11 w-11 place-items-center rounded-2xl glass text-xl transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:shadow-glow active:scale-95"
+                  className="group relative grid h-10 w-10 place-items-center rounded-xl glass text-xl transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:shadow-glow active:scale-95 sm:h-11 sm:w-11 sm:rounded-2xl"
                 >
                   <span className="pointer-events-none select-none">{user.avatar}</span>
                   <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-background bg-success" />
@@ -242,7 +243,7 @@ export default function Header() {
                 type="button"
                 onClick={() => navigate("/entrar")}
                 title="Entrar"
-                className="group relative hidden h-11 w-11 place-items-center rounded-2xl glass text-muted transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:text-primary hover:shadow-glow active:scale-95 sm:grid"
+                className="group relative hidden h-10 w-10 place-items-center rounded-xl glass text-muted transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:text-primary hover:shadow-glow active:scale-95 sm:grid sm:h-11 sm:w-11 sm:rounded-2xl"
               >
                 <User className="size-5 transition-transform duration-300 group-hover:scale-110" />
               </button>
@@ -252,7 +253,7 @@ export default function Header() {
               onClick={() => navigate("/favoritos")}
               title="Favoritos"
               aria-label="Favoritos"
-              className="relative grid h-11 w-11 place-items-center rounded-2xl glass text-muted transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:text-primary hover:shadow-glow active:scale-95"
+              className="relative grid h-10 w-10 place-items-center rounded-xl glass text-muted transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:text-primary hover:shadow-glow active:scale-95 sm:h-11 sm:w-11 sm:rounded-2xl"
             >
               <Heart className="size-5" />
               <CartBadge count={wishlistCount} />
@@ -261,7 +262,7 @@ export default function Header() {
               type="button"
               onClick={openCart}
               title="Carrinho"
-              className="relative grid h-11 w-11 place-items-center rounded-2xl glass text-muted transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:text-primary hover:shadow-glow active:scale-95"
+              className="relative grid h-10 w-10 place-items-center rounded-xl glass text-muted transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:text-primary hover:shadow-glow active:scale-95 sm:h-11 sm:w-11 sm:rounded-2xl"
             >
               <ShoppingBag className="size-5" />
               <CartBadge count={count} />
@@ -270,7 +271,7 @@ export default function Header() {
               type="button"
               onClick={() => setNavOpen(true)}
               title="Menu"
-              className="grid h-11 w-11 place-items-center rounded-2xl glass text-muted transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:text-primary hover:shadow-glow active:scale-95 lg:hidden"
+              className="grid h-10 w-10 place-items-center rounded-xl glass text-muted transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:text-primary hover:shadow-glow active:scale-95 lg:hidden sm:h-11 sm:w-11 sm:rounded-2xl"
             >
               <Menu className="size-5" />
             </button>

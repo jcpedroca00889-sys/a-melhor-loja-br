@@ -50,7 +50,7 @@ export function CategoryGrid({
       {categories.length === 0 ? (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 sm:gap-5">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="flex flex-col items-center gap-3 rounded-2xl border-2 border-white/10 bg-white/[0.03] p-6">
+            <div key={i} className="flex flex-col items-center gap-3 rounded-2xl border-2 border-white/10 bg-white/[0.03] p-4 sm:p-6">
               <Skeleton className="size-14 rounded-2xl" />
               <Skeleton className="h-4 w-24 rounded-full" />
               <Skeleton className="h-3 w-16 rounded-full" />
@@ -73,7 +73,7 @@ export function CategoryGrid({
               whileTap={{ scale: 0.94 }}
               transition={{ type: "spring", stiffness: 320, damping: 16 }}
               className={cn(
-                "group relative flex cursor-pointer flex-col items-center gap-3 overflow-hidden rounded-2xl border-2 p-6 text-center backdrop-blur-xl transition-shadow duration-300",
+                "group relative flex cursor-pointer flex-col items-center gap-3 overflow-hidden rounded-2xl border-2 p-4 text-center backdrop-blur-xl transition-shadow duration-300 sm:p-6",
                 isActive
                   ? "bg-white/[0.07]"
                   : "border-white/10 bg-white/[0.03] hover:shadow-glow",

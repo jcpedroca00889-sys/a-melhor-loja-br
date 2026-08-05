@@ -98,7 +98,7 @@ export default function MobileNav() {
         exit={{ x: "100%" }}
         transition={{ type: "spring", stiffness: 300, damping: 32 }}
         onClick={(e) => e.stopPropagation()}
-        className="glass-strong flex h-full w-full max-w-sm flex-col p-6 shadow-lift sm:w-96"
+        className="glass-strong flex h-full w-full max-w-sm flex-col p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-lift sm:w-96"
       >
         <div className="mb-8 flex items-center justify-between">
           <span className="font-display text-lg font-extrabold sm:text-xl">

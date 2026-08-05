@@ -52,21 +52,21 @@ export const ProductCard = memo(function ProductCard({
       transition={{ type: "spring", stiffness: 240, damping: 24, delay: (index % 4) * 0.07 }}
       whileHover={{ y: -8, rotate: 2, transition: { type: "spring", stiffness: 300, damping: 18 } }}
       onMouseMove={handleSpotlight}
-      className="card-glow-border spotlight group relative flex flex-col gap-4 rounded-2xl border-2 border-transparent bg-white/[0.04] p-5 backdrop-blur-xl transition-shadow duration-500 hover:shadow-lift hover:shadow-primary/15"
+      className="card-glow-border spotlight group relative flex flex-col gap-3 rounded-2xl border-2 border-transparent bg-white/[0.04] p-3.5 backdrop-blur-xl transition-shadow duration-500 hover:shadow-lift hover:shadow-primary/15 sm:gap-4 sm:p-5"
     >
       {/* Badges */}
-      <div className="absolute left-4 top-4 z-10 flex flex-col items-start gap-2">
+      <div className="absolute left-3.5 top-3.5 z-10 flex flex-col items-start gap-2 sm:left-4 sm:top-4">
         {product.badges.map((b) => (
           <ProductBadge key={b} badge={b} />
         ))}
       </div>
 
       {/* Favoritos (funciona mesmo esgotado) */}
-      <WishlistButton slug={product.slug} className="absolute right-4 top-4 z-20" />
+      <WishlistButton slug={product.slug} className="absolute right-3.5 top-3.5 z-20 sm:right-4 sm:top-4" />
 
       <Link to={`/produto/${product.slug}`} className="flex flex-col gap-4">
         {/* Imagem */}
-        <div className="relative aspect-square overflow-hidden rounded-2xl bg-surface">
+        <div className="relative aspect-square overflow-hidden rounded-xl bg-surface sm:rounded-2xl">
           <img
             src={product.images[0]}
             alt={product.name}

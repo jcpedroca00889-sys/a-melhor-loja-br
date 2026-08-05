@@ -190,7 +190,7 @@ export default function CartDrawer() {
                 </ul>
 
                 {/* Rodapé */}
-                <div className="space-y-3 border-t border-white/10 p-6">
+                <div className="space-y-3 border-t border-white/10 p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
                   <div className="flex items-center justify-between text-sm text-dim">
                     <span>Subtotal</span>
                     <animated.span className="font-display font-bold text-text">

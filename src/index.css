@@ -158,7 +158,7 @@ html.lenis body {
   margin-inline: auto;
   width: 100%;
   max-width: 80rem;
-  padding-inline: 1.25rem;
+  padding-inline: clamp(1rem, 4vw, 1.25rem);
 
   @media (width >= 40rem) {
     padding-inline: 2rem;
@@ -167,6 +167,7 @@ html.lenis body {
     padding-inline: 3rem;
   }
 }
+
 
 /* Glassmorphism */
 @utility glass {

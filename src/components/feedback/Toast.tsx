@@ -67,7 +67,7 @@ function ToastCard({
 export function Toaster() {
   const toasts = useToastStore((s) => s.toasts);
   return (
-    <div className="pointer-events-none fixed bottom-5 right-5 z-[80] flex flex-col gap-3">
+    <div className="pointer-events-none fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-5 z-[80] flex flex-col gap-3">
       <AnimatePresence mode="popLayout">
         {toasts.map((t) => (
           <ToastCard key={t.id} {...t} />

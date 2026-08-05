@@ -21,7 +21,7 @@ function Stat({ value, suffix, label }: { value: number; suffix: string; label: 
       <motion.span
         whileHover={{ scale: 1.12, y: -3 }}
         transition={{ type: "spring", stiffness: 300, damping: 16 }}
-        className="inline-block font-display text-4xl font-extrabold text-gradient"
+        className="inline-block font-display text-3xl font-extrabold text-gradient sm:text-4xl"
       >
         {Math.round(count)}
         {suffix}
@@ -56,7 +56,7 @@ export function AboutSection() {
           favorita do episódio. É esse cuidado nos mínimos detalhes que nos
           faz diferentes.
         </p>
-        <div className="mt-10 grid grid-cols-3 gap-6">
+        <div className="mt-10 grid grid-cols-3 gap-4 sm:gap-6">
           <Stat value={15} suffix="+" label="Produtos exclusivos" />
           <Stat value={5} suffix="min" label="Para receber no e-mail" />
           <Stat value={98} suffix="%" label="Clientes felizes" />

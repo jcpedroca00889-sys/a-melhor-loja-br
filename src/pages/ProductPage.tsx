@@ -64,7 +64,7 @@ export default function ProductPage() {
         <span className="text-muted">{product.name}</span>
       </nav>
 
-      <div className="grid items-start gap-12 lg:grid-cols-2">
+      <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
         {/* Galeria */}
         <ProductGallery images={product.images} name={product.name} badges={product.badges} />
 
@@ -122,7 +122,7 @@ export default function ProductPage() {
           )}
 
           {/* Quantidade + CTA */}
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
             <div className="glass flex items-center gap-1 rounded-full p-1.5">
               <button
                 type="button"
@@ -167,7 +167,7 @@ export default function ProductPage() {
           )}
 
           {/* Perks */}
-          <div className="mt-10 grid gap-3 sm:grid-cols-3">
+          <div className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-3">
             {PERKS.map(({ icon: Icon, label }) => (
               <div
                 key={label}

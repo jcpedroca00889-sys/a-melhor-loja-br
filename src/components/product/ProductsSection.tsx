@@ -56,8 +56,8 @@ export function ProductsSection({
         </p>
       </div>
 
-      {/* Chips de filtro */}
-      <div className="mb-10 flex flex-wrap justify-center gap-2">
+      {/* Chips de filtro — scroll horizontal no mobile, centraliza no desktop */}
+      <div className="no-scrollbar -mx-4 mb-10 flex flex-nowrap gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0">
         <button
           type="button"
           onClick={() => onSelect(null)}
