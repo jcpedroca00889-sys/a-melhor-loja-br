@@ -1,0 +1,58 @@
+[
+  {
+    "id": "netflix",
+    "name": "Netflix",
+    "emoji": "🎬",
+    "color": "#E50914",
+    "gradient": "from-red-500/25 to-rose-600/10",
+    "blurb": "Filmes e séries sem limite"
+  },
+  {
+    "id": "amazon",
+    "name": "Amazon Prime",
+    "emoji": "📦",
+    "color": "#00A8E1",
+    "gradient": "from-sky-500/25 to-cyan-500/10",
+    "blurb": "Streaming, frete e muito mais"
+  },
+  {
+    "id": "spotify",
+    "name": "Spotify",
+    "emoji": "🎵",
+    "color": "#1DB954",
+    "gradient": "from-green-500/25 to-emerald-500/10",
+    "blurb": "Música para todos os momentos"
+  },
+  {
+    "id": "disney",
+    "name": "Disney+",
+    "emoji": "✨",
+    "color": "#6E56CF",
+    "gradient": "from-violet-500/25 to-indigo-500/10",
+    "blurb": "O mundo mágico da Disney"
+  },
+  {
+    "id": "hbomax",
+    "name": "HBO Max",
+    "emoji": "🍿",
+    "color": "#A78BFA",
+    "gradient": "from-purple-500/25 to-fuchsia-500/10",
+    "blurb": "Máximas histórias"
+  },
+  {
+    "id": "youtube",
+    "name": "YouTube Premium",
+    "emoji": "▶️",
+    "color": "#FF0000",
+    "gradient": "from-red-500/25 to-orange-500/10",
+    "blurb": "Vídeos sem anúncios"
+  },
+  {
+    "id": "crunchyroll",
+    "name": "Crunchyroll",
+    "emoji": "🍥",
+    "color": "#F47521",
+    "gradient": "from-orange-500/25 to-amber-500/10",
+    "blurb": "O paraíso dos animes"
+  }
+]

@@ -1,0 +1,39 @@
+# Build
+dist/
+node_modules/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+dev-restart.log
+dev-restart.err.log
+dev.log
+srv-test.log
+
+# Temp
+.tmp/
+.server/data/*.db*
+server/data/*.db*
+server/data/*.db-wal
+server/data/*.db-shm
+
+# OMO
+.slim/deepwork/
+omo/
+
+# Database
+*.db
+*.db-wal
+*.db-shm

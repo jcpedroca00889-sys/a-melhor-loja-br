@@ -1,0 +1,50 @@
+[
+  {
+    "id": "t1",
+    "name": "Marina S.",
+    "role": "Designer de Produto",
+    "avatar": "🦊",
+    "rating": 5,
+    "text": "Parece que entrei em outra dimensão. Cada detalhe da loja é encantador — do fundo com estrelinhas até a caneca Rocket Rush que chegou em dois dias."
+  },
+  {
+    "id": "t2",
+    "name": "Rafael T.",
+    "role": "Streamer",
+    "avatar": "🐼",
+    "rating": 5,
+    "text": "O Mini Dragão Laranja virou mascote do meu canal. Qualidade absurda e a embalagem já valeu o pedido. SATOSHII STORE entendeu a missão."
+  },
+  {
+    "id": "t3",
+    "name": "Beatriz L.",
+    "role": "Ilustradora",
+    "avatar": "🦄",
+    "rating": 5,
+    "text": "Comprei a Pelúcia Unicórnio Doce para presentear e quase fiquei com ela. O site é vivo, gostoso de navegar — virei cliente fiel."
+  },
+  {
+    "id": "t4",
+    "name": "Gustavo M.",
+    "role": "Desenvolvedor",
+    "avatar": "🐙",
+    "rating": 4,
+    "text": "Interface linda, fluida e rápida. O checkout em etapas é um dos melhores que já usei. Só queria mais produtos novos todo mês 😄"
+  },
+  {
+    "id": "t5",
+    "name": "Camila R.",
+    "role": "Professora",
+    "avatar": "🐯",
+    "rating": 5,
+    "text": "Decorei minha sala com a Luminária Lua Sorridente. As crianças amam! Envio super rápido e tudo veio impecável."
+  },
+  {
+    "id": "t6",
+    "name": "Thiago A.",
+    "role": "Colecionador",
+    "avatar": "🍩",
+    "rating": 5,
+    "text": "Action Figure RoboToon chegou lacrada e perfeita. O site tem uma energia contagiante — cada hover responde. Melhor loja cartoon que já vi."
+  }
+]
